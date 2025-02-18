@@ -2,10 +2,10 @@
   "name": "nodejs-1",
   "version": "1.0.0",
   "description": "10k-node-js",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start":"nodemon main.js"
    
   },
   "author": "Sai Tejaswini",
