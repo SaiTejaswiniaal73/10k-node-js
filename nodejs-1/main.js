@@ -24,7 +24,7 @@ const server=http.createServer((req,res)=>{
     res.end("response provided")
 })
 server.listen("3101",()=>{
-    console.log("server loading")
+    console.log("server loading this is my 1st server welcom")
 })
 // http://localhost:3101/
 //192.168.1.3-this is your ip address
