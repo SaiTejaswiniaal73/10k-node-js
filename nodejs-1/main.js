@@ -18,14 +18,14 @@
 
 // 18-2-25
 
-// const http=require("http")
-// const server=http.createServer((req,res)=>{
-//     res.write("welcome to node js")
-//     res.end("response provided")
-// })
-// server.listen("3101","192.168.1.3",()=>{
-//     console.log("server loading")
-// })
+const http=require("http")
+const server=http.createServer((req,res)=>{
+    res.write("welcome to node js")
+    res.end("response provided")
+})
+server.listen("3101",()=>{
+    console.log("server loading")
+})
 // http://localhost:3101/
 //192.168.1.3-this is your ip address
 // Import the HTTP module
@@ -41,3 +41,4 @@
 // server.listen(3101, "192.168.1.3", () => {
 //     console.log("Server loading at http://192.168.1.3:3101");
 // });
+//https://github.com/SaiTejaswiniaal73/10k-node-js
