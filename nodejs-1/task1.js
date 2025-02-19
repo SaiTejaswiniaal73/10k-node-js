@@ -9,77 +9,65 @@ const server = http.createServer((req, res) => {
   const quantity = parsedURL.query.quantity;
 
   if (req.method === "GET") {
-    if (parsedURL.pathname === "/sweets") {
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ foodtype: "sweets" }));
+    // Check if the path is for sweets
+    if (parsedURL.pathname.startsWith("/sweets/")) {
+      const dish = parsedURL.pathname.slice(8).toLowerCase(); // Extract dish name and convert to lowercase
 
-      if (parsedURL.pathname === "/KajuKatli") {
+      const sweets = {
+        KajuKatli: "Kaju Katli",
+        gulabjam: "Gulab Jamun",
+        jalebi: "Jalebi",
+        ariselu: "Ariselu",
+        bobbatlu: "Bobbatlu",
+      };
+
+      // Check for case-insensitive match
+      const matchedDish = Object.keys(sweets).find(key => key.toLowerCase() === dish);
+
+      if (matchedDish) {
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "sweets", dish: "Kaju Katli", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/gulabjam") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "sweets", dish: "Gulab Jamun", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/Jalebi") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "sweets", dish: "Jalebi", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/Ariselu") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "sweets", dish: "Ariselu", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/Bobbatlu") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "sweets", dish: "Bobbatlu", quantityofdish: quantity }));
+        res.end(JSON.stringify({ foodtype: "sweets", dish: sweets[matchedDish], quantityofdish: quantity }));
       } else {
         res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Sweet not found" }));
+        res.end(JSON.stringify({ error: "Dish not found in the sweets category" }));
       }
-    } else if (parsedURL.pathname === "/hot") {
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ foodtype: "hot" }));
+    } 
+    // Check if the path is for hot dishes
+    else if (parsedURL.pathname.startsWith("/hot/")) {
+      const dish = parsedURL.pathname.slice(5).toLowerCase(); // Extract dish name and convert to lowercase
 
-      if (parsedURL.pathname === "/Murukku") {
+      const hot = {
+        murukku: "Murukku",
+        pakoda: "Pakoda",
+        samosa: "Samosa",
+        vada: "Vada",
+        chillibajji: "Chilli Bajji",
+      };
+
+      // Check for case-insensitive match
+      const matchedDish = Object.keys(hot).find(key => key.toLowerCase() === dish);
+
+      if (matchedDish) {
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "hot", dish: "Murukku", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/Pakoda") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "hot", dish: "Pakoda", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/Samosa") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "hot", dish: "Samosa", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/Vada") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "hot", dish: "Vada", quantityofdish: quantity }));
-      } else if (parsedURL.pathname === "/ChilliBajji") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ foodtype: "hot", dish: "Chilli Bajji", quantityofdish: quantity }));
+        res.end(JSON.stringify({ foodtype: "hot", dish: hot[matchedDish], quantityofdish: quantity }));
       } else {
         res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Hot dish not found" }));
+        res.end(JSON.stringify({ error: "Dish not found in the hot category" }));
       }
-    } else {
-        res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(
-          JSON.stringify({
-            error: "Invalid food category. Use /sweets or /hot",
-            available_options: {
-              sweets: ["Kaju Katli", "Gulab Jamun", "Jalebi", "Ariselu", "Bobbatlu"],
-              hot: ["Murukku", "Pakoda", "Samosa", "Vada", "Chilli Bajji"]
-            }
-          })
-        );
-      }
-      
-  } else if (req.method === "POST") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("POST request received");
-  } else if (req.method === "PUT") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("PUT request received");
-  } else if (req.method === "PATCH") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("PATCH request received");
-  } else if (req.method === "DELETE") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("DELETE request received");
+    } 
+    // Handle invalid paths
+    else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          error: "Invalid food category or dish",
+          available_options: {
+            sweets: ["Kaju Katli", "Gulab Jamun", "Jalebi", "Ariselu", "Bobbatlu"],
+            hot: ["Murukku", "Pakoda", "Samosa", "Vada", "Chilli Bajji"],
+          },
+        })
+      );
+    }
   } else {
     res.writeHead(405, { "Content-Type": "text/plain" });
     res.end("Method not allowed");
@@ -87,5 +75,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3101, () => {
-  console.log("Server running on port  of task1.js 3101");
+  console.log("Server running on port 3101");
 });
