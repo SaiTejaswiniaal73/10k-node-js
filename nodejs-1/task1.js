@@ -72,7 +72,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(400, { "Content-Type": "application/json" });
       res.end(
         JSON.stringify({
-          error: "Invalid food category or dish",
+          error: "go through the list to choose your snacks",
           available_options: {
             sweets: ["Kaju Katli", "Gulab Jamun", "Jalebi", "Ariselu", "Bobbatlu"],
             hot: ["Murukku", "Pakoda", "Samosa", "Vada", "Chilli Bajji"],
