@@ -44,6 +44,8 @@
 // });
 //https://github.com/SaiTejaswiniaal73/10k-node-js
 
+
+
 // 19/2/25
 
 //we have to paste  http://localhost:3101/ this to get o.p in postman
@@ -110,110 +112,129 @@
 // server.listen(3101, () => {
 //     console.log("Server running on port 3101");
 // });
-// const url=require("url")
+
+
+// const http = require("http");
+// const url = require("url"); // Required for query parsing
+
 // const server = http.createServer((req, res) => {
-// //     console.log(req.url)
-// // const parsedurl=url.parse(req.url,true)
-// // console.log(parsedurl.query.tickets)
-//   if (req.metod == "GET") {
-//     if (req.url == "//CHAVVA") {
-//         res.writeHead(200,"ok",{"content-type":"application/json"})
-//       res.write(JSON.stringify({"MOIVE":"CHAVVA",SCREEN:"ONE"}));
-//       res.end();
-//     } else if (req.url == "/THANDEL") {
-//         res.writeHead(200,"ok",{"content-type":"application/json"})
-//         res.write(JSON.stringify({"MOIVE":"THANDEL",SCREEN:"TWO"}));
-//       res.write("showing know thandel");
-//       res.end();
-//     } else if (req.url == "/SKYFORCE") {
-//         res.writeHead(200,"ok",{"content-type":"application/json"})
-//         res.write(JSON.stringify({"MOIVE":"SKYFOREC",SCREEN:"THREE"}));
-//       res.write("showing know skyforce");
-//       res.end();
+//     const parsedURL=url.parse(req.url,true)
+    
+//     console.log(parsedURL)
+//     const tickets=parsedURL.query.tickets
+    
+
+//     if (req.method === "GET") {
+//         if (parsedURL.pathname === "/CHAVVA") {
+//             res.writeHead(200, { "Content-Type": "application/json" });
+//             res.write(JSON.stringify({ MOVIE: "CHAVVA", SCREEN: "ONE" ,numberoftickets:tickets}));
+//             res.end()
+//         } else if (parsedURL.pathname=== "/THANDEL") {
+//             res.writeHead(200, { "Content-Type": "application/json" });
+//             res.write(JSON.stringify({ MOVIE: "THANDEL", SCREEN: "TWO",numberoftickets:tickets }));
+//             res.end()
+//         } else if (parsedURL.pathname === "/SKYFORCE") {
+//             res.writeHead(200, { "Content-Type": "application/json" });
+//             res.write(JSON.stringify({ MOVIE: "SKYFORCE", SCREEN: "THREE",numberoftickets:tickets }));
+//             res.end()
+
+//         } else {
+//             res.writeHead(404, { "Content-Type": "application/json" });
+//             res.write(JSON.stringify({ error: "Movie not found",numberoftickets:tickets }));
+//             res.end()
+//         }
+//     } else if (parsedURL.pathname === "POST") {
+//         res.writeHead(200, { "Content-Type": "text/plain" });
+//         res.write("POST request received");
+//     } else if (req.method === "PUT") {
+//         res.writeHead(200, { "Content-Type": "text/plain" });
+//         res.write("PUT request received");
+//     } else if (req.method === "PATCH") {
+//         res.writeHead(200, { "Content-Type": "text/plain" });
+//         res.write("PATCH request received");
+//     } else if (req.method === "DELETE") {
+//         res.writeHead(200, { "Content-Type": "text/plain" });
+//         res.write("DELETE request received");
+//     } else {
+//         res.writeHead(405, { "Content-Type": "text/plain" });
+//         res.write("Method not allowed");
 //     }
-//     else{
-//         res.write("moive not found")
-//         res.write(JSON.stringify({"MOIVE":"CHAVVA",SCREEN:"ONE"}));
-//         res.end();
-//     }
-//     res.end();
-//   } else if ((req.method = "POST")) {
-//     res.end();
-//   } else if ((req.method = "PUT")) {
-//     res.end();
-//   } else if ((req.method = "PATCH")) {
-//     res.end();
-//   } else if ((req.method = "DELETE")) {
-//     res.end();
-//   } else {
-//     res.end();
-//   }
 // });
 
 // server.listen(3101, () => {
-//     console.log("Server running on moive port 3101");
+//     console.log("Server running on port 3101");
 // });
-// const url=require("url")
-// const server = http.createServer((req, res) => {
-// //     console.log(req.url)
-// // const parsedurl=url.parse(req.url,true)
-// // console.log(parsedurl.query.tickets)
 
+// function demo(a){
+
+// }
+// demo(5)
+   
+// perfect right
 
 const http = require("http");
 const url = require("url"); // Required for query parsing
 
 const server = http.createServer((req, res) => {
-    console.log(req.url)
-    const parsedURL=url.parse(req.url,true)
-    
-    console.log(parsedURL)
-    const tickets=parsedURL.query.tickets
-    // console.log(parsedURL.pathname)
-    url.parse(req.url,true)
-    // console.log("Requested URL:", req.url);
+  const parsedURL = url.parse(req.url, true);
 
-    // const parsedUrl = url.parse(req.url, true);
-    // console.log("Query Params:", parsedUrl.query);
+  console.log(parsedURL);
+  const tickets = parsedURL.query.tickets;
 
-    if (req.method === "GET") {  // Corrected method checking
-        if (parsedURL.pathname === "/CHAVVA") {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ MOVIE: "CHAVVA", SCREEN: "ONE" ,numberoftickets:tickets}));
-        } else if (parsedURL.pathname=== "/THANDEL") {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ MOVIE: "THANDEL", SCREEN: "TWO",numberoftickets:tickets }));
-        } else if (parsedURL.pathname === "/SKYFORCE") {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ MOVIE: "SKYFORCE", SCREEN: "THREE",numberoftickets:tickets }));
-        } else {
-            res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ error: "Movie not found",numberoftickets:tickets }));
-        }
-    } else if (parsedURL.pathname === "POST") {
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end("POST request received");
-    } else if (req.method === "PUT") {
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end("PUT request received");
-    } else if (req.method === "PATCH") {
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end("PATCH request received");
-    } else if (req.method === "DELETE") {
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end("DELETE request received");
+  if (req.method === "GET") {
+    if (parsedURL.pathname === "/CHAVVA") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(
+        JSON.stringify({
+          MOVIE: "CHAVVA",
+          SCREEN: "ONE",
+          numberoftickets: tickets,
+        })
+      );
+      res.end();
+    } else if (parsedURL.pathname === "/THANDEL") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(
+        JSON.stringify({
+          MOVIE: "THANDEL",
+          SCREEN: "TWO",
+          numberoftickets: tickets,
+        })
+      );
+      res.end();
+    } else if (parsedURL.pathname === "/SKYFORCE") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(
+        JSON.stringify({
+          MOVIE: "SKYFORCE",
+          SCREEN: "THREE",
+          numberoftickets: tickets,
+        })
+      );
+      res.end();
     } else {
-        res.writeHead(405, { "Content-Type": "text/plain" });
-        res.end("Method not allowed");
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.write(
+        JSON.stringify({ error: "Movie not found", numberoftickets: tickets })
+      );
+      res.end();
     }
+  } else if (parsedURL.pathname === "POST") {
+    res.end();
+  } else if (req.method === "PUT") {
+    res.end();
+  } else if (req.method === "PATCH") {
+    res.end();
+  } else if (req.method === "DELETE") {
+    res.end();
+  } else {
+    res.end();
+  }
 });
 
 server.listen(3101, () => {
-    console.log("Server running on port 3101");
+  console.log("Server running on port 3101");
 });
 
-function demo(a){
-
-}
-demo(5)
-   
+function demo(a) {}
+demo(5);
