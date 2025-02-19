@@ -4,17 +4,22 @@ const url = require("url");
 const server = http.createServer((req, res) => {
   console.log(req.url);
   const parsedURL = url.parse(req.url, true);
-  console.log(parsedURL);
-  console.log(parsedURL.pathname);
   const quantity = parsedURL.query.quantity;
 
   if (req.method === "GET") {
     // Check if the path is for sweets
-    if (parsedURL.pathname.startsWith("/sweets/")) {
+    if (parsedURL.pathname === "/sweets") {
+      // Respond with the list of available sweets
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({
+        foodtype: "sweets",
+        available_sweets: ["Kaju Katli", "Gulab Jamun", "Jalebi", "Ariselu", "Bobbatlu"],
+      }));
+    } else if (parsedURL.pathname.startsWith("/sweets/")) {
       const dish = parsedURL.pathname.slice(8).toLowerCase(); // Extract dish name and convert to lowercase
 
       const sweets = {
-        KajuKatli: "Kaju Katli",
+        kajukatli: "Kaju Katli",
         gulabjam: "Gulab Jamun",
         jalebi: "Jalebi",
         ariselu: "Ariselu",
@@ -33,7 +38,14 @@ const server = http.createServer((req, res) => {
       }
     } 
     // Check if the path is for hot dishes
-    else if (parsedURL.pathname.startsWith("/hot/")) {
+    else if (parsedURL.pathname === "/hot") {
+      // Respond with the list of available hot dishes
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({
+        foodtype: "hot",
+        available_hot_dishes: ["Murukku", "Pakoda", "Samosa", "Vada", "Chilli Bajji"],
+      }));
+    } else if (parsedURL.pathname.startsWith("/hot/")) {
       const dish = parsedURL.pathname.slice(5).toLowerCase(); // Extract dish name and convert to lowercase
 
       const hot = {
@@ -45,6 +57,7 @@ const server = http.createServer((req, res) => {
       };
 
       // Check for case-insensitive match
+
       const matchedDish = Object.keys(hot).find(key => key.toLowerCase() === dish);
 
       if (matchedDish) {
@@ -56,6 +69,7 @@ const server = http.createServer((req, res) => {
       }
     } 
     // Handle invalid paths
+    
     else {
       res.writeHead(400, { "Content-Type": "application/json" });
       res.end(
