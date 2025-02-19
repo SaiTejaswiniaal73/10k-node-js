@@ -57,7 +57,6 @@ const server = http.createServer((req, res) => {
       };
 
       // Check for case-insensitive match
-
       const matchedDish = Object.keys(hot).find(key => key.toLowerCase() === dish);
 
       if (matchedDish) {
@@ -69,7 +68,6 @@ const server = http.createServer((req, res) => {
       }
     } 
     // Handle invalid paths
-    
     else {
       res.writeHead(400, { "Content-Type": "application/json" });
       res.end(
@@ -89,5 +87,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3101, () => {
-  console.log("Server running on port 3101");
+  console.log("Server running on port of task1.js  3101");
 });
