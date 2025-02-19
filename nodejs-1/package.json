@@ -2,13 +2,14 @@
   "name": "nodejs-1",
   "version": "1.0.0",
   "description": "10k-node-js",
-  "main": "main.js",
+  "main": "task1.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node main.js"
+    "start":"node task1.js"
    
   },
   "author": "Sai Tejaswini",
   "license": "ISC"
 }
+
 
