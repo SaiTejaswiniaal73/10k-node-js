@@ -353,9 +353,455 @@
 // ---------------------------------------20-2-25/19/2/25 up onee----------------------------------------------------
 
 // ---------------------------------------21-2-25----------------------------------------------------
+const http = require("http");
+const url = require("url");
+const fs = require("fs");
+// const { console } = require("inspector");
+
+// const server=http.createServer((req,res)=>{
+//   if(req.method=="POST"){
+//     req.on("data",(x)=>{
+//       console.log(x);
+//       res.end()
+//     })
+//   }
+// })
+// server.listen(3101, () => {
+//   console.log("Server running on port 3101");
+// });
+// // by using above data we will get juyst buffer data to get corcr data we need to write below
+// // so to cut binary pieces in small it is calles as chunk
+
+// const http = require("http");
+// const url = require("url");
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "POST") {
+//     let body = "";
+//     req.on("data", (chunk) => {
+//       body += chunk.toString();
+//       console.log(body);
+//       res.end();
+//     });
+//     req.on("error", (err) => {
+//       console.log(err);
+//       res.write("err");
+//     });
+//     req.on("end", () => {
+//       res.end("data receied");
+//     });
+//   }
+// });
+// server.listen(3101, () => {
+//   console.log("Server running on port 3101");
+// });
+
+// // the above codes used to get data from binary to text
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "GET") {
+
+//     fs.readFile("./sample.txt","utf8",(err,data)=>{
+//       if(err){
+//         console.log(err)
+//         res.write(err)
+//         res.end();
+//       }
+//       else{
+//         console.log(data)
+//         res.write(data)
+//         res.end();
+
+//       }
+//     })
+//     fs.readFile("./info.txt","utf8",(err,data)=>{
+//       if(err){
+//         console.log(err)
+//         res.write(err)
+//         res.end()
+//       }
+//       else{
+//         console.log(data)
+//         res.write(data)
+//         res.end()
+
+//       }
+//     })
+
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3101");
+// });
+// // the above code is related to asyncrhonus way
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "GET") {
+//     let sample_data=fs.readFileSync("./sample.txt","utf8")
+//      console.log(sample_data)
+
+//     let infro_data=fs.readFileSync("./info.txt","utf8")
+//     console.log(infro_data)
+//      res.end(sample_data + "\n" + infro_data);
+
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+
+// // the above code is synchrons
+
+// // to add the dat to the file
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "POST") {
+//     let ipData = "10k coders";
+//     let sample_data = fs.writeFile("./sample.txt", ipData, (err) => {
+//       if (err) {
+//         res.end(err);
+//       } else {
+//         res.write("data inserted");
+//         res.end();
+//       }
+//     });
+//     console.log(sample_data);
+
+//     let infro_data = fs.readFileSync("./info.txt", "utf8");
+//     console.log(infro_data);
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+// // the belwo code is for write in this also we have 2 fs.writeFile()  and fs,writeflrsync() it will remove the data whihc is there and repalce wirh aboev data
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "POST") {
+//     let ipData = "10k coders";
+//     fs.appendFile("./sample.txt", ipData, (err) => {
+//       if (err) {
+//         console.log(err)
+//         res.end(err);
+//       } else {
+//         // res.write("data inserted");
+//         res.end("data appended");
+//       }
+//     });
+   
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
 
 // ---------------------------------------22-2-25----------------------------------------------------
+
+// 23/2/25
+
+//the code is used to write data in the file
+
+// const http = require("http");
+// const url = require("url");
+// const fs = require("fs");
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "POST") {
+//     let ipData=""
+
+ 
+//     req.on("data",(chunk)=>{
+//       ipData+=chunk.toString()
+
+//     })
+//     req.on("end",()=>{
+//       fs.writeFile("./info.txt",ipData,(err)=>{
+//         if(err){
+//           res.write(error)
+//           res.end()
+//         }
+//         else{
+//           res.write("data inserted")
+//           res.end()
+//         }
+
+//       })
+
+//     })
+   
+
+   
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+// the above willl take data and insetr in file
+//the baove code is homework of 22/2/25
+
+// {
+//     "name":"Tejaswini",
+//     "age":"24",
+//     "place":"hyd"
+// }
+
+//
+// 23/2/25
+
+const http = require("http");
+const fs = require("fs");
+const server = http.createServer((req, res) => {
+
+  if(req.method=="GET"){
+    fs.readFile("./data.json","utf8",(err,data)=>{
+      if(err){
+        res.write(err)
+        res.end()
+      }
+      else{
+        res.writeHead(200,"ok",{"content-type":"application/json"})
+        console.log(JSON.parse(data))
+        console.log(typeof JSON.parse(data))
+        console.log(typeof data)
+        res.write(data)
+        res.end()
+      }
+      
+
+    })
+  }
+});
+server.listen(3105, () => {
+  console.log("Server running on port 3105");
+});
+
+//will make chnage in files of tex
+//to see chaegs in the arry we can use below to add existing dad
+
+// 23/2/25
+
+// const http = require("http");
+// const fs = require("fs");
+// const server = http.createServer((req, res) => {
+
+//   if(req.method=="GET"){
+//     fs.readFile("./data.json","utf8",(err,data)=>{
+//       if(err){
+//         res.write(err)
+//         res.end()
+//       }
+//       else{
+//         res.writeHead(200,"ok",{"content-type":"application/json"})
+//         // console.log(JSON.parse(data))
+//         // console.log(typeof JSON.parse(data))
+//         // console.log(typeof data)
+//         // res.write(data)
+//         // res.end()
+//         let existingData=JSON.parse(data)
+//         existingData.push(6)
+//         console.log(existingData)
+//         fs.writeFile("./data.json",JSON.stringify(existingData),(err)=>{
+//           if(err){
+//             res.write(err)
+//             res.end()
+//           }
+//           else{
+//             res.write("updated")
+//             res.end()
+//           }
+
+//         })
+//       }
+
+
+      
+
+//     })
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+
+
+
+// // 23/2/25
+
+// const http = require("http");
+// const fs = require("fs");
+// const server = http.createServer((req, res) => {
+
+//   if(req.method=="GET"){
+//     fs.readFile("./data.json","utf8",(err,data)=>{
+//       if(err){
+//         res.write(err)
+//         res.end()
+//       }
+//       else{
+//         res.writeHead(200,"ok",{"content-type":"application/json"})
+//         // console.log(JSON.parse(data))
+//         // console.log(typeof JSON.parse(data))
+//         // console.log(typeof data)
+//         // res.write(data)
+//         // res.end()
+//         let existingData=JSON.parse(data)
+//         existingData.push(6)
+//         console.log(existingData)
+//         fs.writeFile("./data.json",JSON.stringify(existingData),(err)=>{
+//           if(err){
+//             res.write(err)
+//             res.end()
+//           }
+//           else{
+//             res.write("updated")
+//             res.end()
+//           }
+
+//         })
+//       }
+
+
+      
+
+//     })
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+
+
+
+
 // ---------------------------------------23-2-25----------------------------------------------------
+
+//we can use apend only for text content not for json fomrate data
+
+
+// 24/2/25
+
+// const http = require("http");
+// const fs = require("fs");
+// const server = http.createServer((req, res) => {
+
+//   if(req.method=="GET"){
+//     fs.readFile("./users.json","utf8",(err,data)=>{
+//       if(err){
+//         res.write(err)
+//         res.end()
+//       }
+//       else{
+//         res.writeHead(200,"ok",{"content-type":"application/json"})
+//         console.log(JSON.parse(data))
+//         console.log(data)
+//         res.write(data)
+//         res.end()
+//         // let existingData=JSON.parse(data)
+//         // existingData.push(6)
+//         // console.log(existingData)
+//         fs.writeFile("./data.json",JSON.stringify(existingData),(err)=>{
+//           if(err){
+//             res.write(err)
+//             res.end()
+//           }
+//           else{
+//             res.write("updated")
+//             res.end()
+//           }
+
+//         })
+//       } 
+//     })
+//   }
+// });
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+
+
+
+// // 24/2/25
+
+//CREAT THE FOILE AND INSERT TJE DATA AND ARRAY INSERTION
+// const http = require("http");
+// const fs = require("fs");
+
+// // const server = http.createServer((req, res) => {
+
+// //   if(req.method=="POST"){
+// //     // let ipData={"id":3,"name":"ram","age":"one"}
+// //     let ipData="";
+// //     req.on("data",(chunk)=>{
+// //       ipData+=chunk.toString();
+  
+// //     });
+    
+// //     req.on("end",()=>{
+// //       console.log(ipData)
+// //       fs.readFile("./users.json","utf8",(err,data)=>{
+// //         if(err){
+// //           // res.sendDate(err)
+// //           res.end(err)
+// //         }
+// //         else{
+          
+// //           let existingData=JSON.parse(data)
+// //           existingData.push(JSON.parse(ipData))
+// //           // console.log(existingData)
+// //           let updatedData=existingData;
+// //           fs.writeFile("./users.json",JSON.stringify(updatedData),(err)=>{
+// //             if(err){
+// //               // res.write(err)
+// //               res.end(err)
+// //             }
+// //             else{
+// //               res.write(" data updated")
+// //               res.end()
+// //             }
+  
+// //           })
+// //         } 
+// //       })
+      
+
+// //     })
+    
+// //   }
+// // });
+// const server=http.createServer((req,res)=>{
+//   // fs.unlink("./sample1/demo.text")
+//   fs.writeFile("./hello.txt","hi",(err)=>{
+//     if(err){
+//       res.end(err)
+//     }
+//     else{
+//       res.end("created")
+//     }
+//   })
+// })
+// server.listen(3105, () => {
+//   console.log("Server running on port 3105");
+// });
+
+//assecig and gettign file name and files loactaion
+
+// console.log("directory: ",__dirname)//it will give directpry path name
+// console.log("file: ",__filename)//it will giev whole path
+// console.log(path.basename(__dirname))//it will give basae
+// console.log(path.basename(__filename))//to get just file name
+// console.log(path.extname(__filename))
+// console.log(path.parse(__dirname))
+// console.log(path.parse(__filename))//parse will giev enter thing totally
+//path module os ued to save out file in the various path
+//predefien methos this are path,http,fs,url and os ther ae predefined modules
+//import export are used defined modeules
+
+// console.log(path)
+// console.log(path.join("sample","demo","index.js"))
+// console.log(path.join(__dirname,"hii.js"))
+//it wil print the path of the folder in which we are using(__dirname)
+
+
 // ---------------------------------------24-2-25----------------------------------------------------
 // ---------------------------------------25-2-25----------------------------------------------------
 // ---------------------------------------26-2-25----------------------------------------------------
